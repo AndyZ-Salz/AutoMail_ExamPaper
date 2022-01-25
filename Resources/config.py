@@ -14,5 +14,12 @@
 
 project_name = "Test"
 exam_name = "AS GEO Paper1"
-score_file = r"Resources/AS_21W_Paper1.xlsx"
-mail_templet = r"Resources/mail_templet.txt"
+score_file = r"./Resources/AS_21W_Paper1.xls"
+
+question_start = 5
+question_in_last_col = False
+
+fisrt_person = 3
+
+name_in_col = 1
+mail_in_col = 3
