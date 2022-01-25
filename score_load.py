@@ -12,7 +12,6 @@
 # History:
 # 2022/1/25: Create
 
-import Resources.config as config
 import xlrd  # 导入库
 
 
@@ -30,7 +29,7 @@ def open_file(path):
     return sheet1
 
 
-def read_question_title(worksheet):
+def read_question_title(worksheet,config):
     title_start = config.question_start
     if config.question_in_last_col == True:
         title_finish = worksheet.ncols
@@ -57,7 +56,7 @@ def read_question_title(worksheet):
     return title_list
 
 
-def read_personal_results(worksheet, title_list):
+def read_personal_results(worksheet, title_list,config):
     person_first = config.fisrt_person
     person_last = worksheet.nrows
 
@@ -67,8 +66,8 @@ def read_personal_results(worksheet, title_list):
 
     for i in range(person_first, person_last):
         person_data = {}
-        if __name__ == '__main__':
-            print("person's raw data: " + str(worksheet.row_values(i)))
+        # if __name__ == '__main__':
+        #     print("person's raw data: " + str(worksheet.row_values(i)))
 
         person_raw_data = worksheet.row_values(i)
         # name
@@ -85,19 +84,26 @@ def read_personal_results(worksheet, title_list):
             title_finish = worksheet.ncols - 1
 
         index = 0
-        person_score = title_list
+        person_score = []
         for j in range(title_start, title_finish):
             real_score = person_raw_data[j]
             if real_score == '':
                 real_score = 0.0
 
-            person_score[index]["real_score"] = real_score
+            question_score ={}
+            question_score['question_index'] = title_list[index]['question_index']
+            question_score['display_level'] = title_list[index]['display_level']
+            question_score['question_title'] = title_list[index]['question_title']
+            question_score['question_total_value'] = title_list[index]['question_total_value']
+            question_score["real_score"] = real_score
             index += 1
+            person_score.append(question_score)
 
-        if __name__ == '__main__':
-            print("person's score data: " + str(person_score))
+        # if __name__ == '__main__':
+        # print("person's score data: " + str(person_score))
 
         person_data["score"] = person_score
+        del person_score
 
         # note
         if config.question_in_last_col == False:
@@ -107,17 +113,21 @@ def read_personal_results(worksheet, title_list):
             print("Personal data after processing：" + str(person_data))
 
         persons_list.append(person_data)
+        del person_data
 
+    # print("persons_list before return:" + str(persons_list))
     return persons_list
 
 
 if __name__ == '__main__':
+    import Resources.config_andy as config
     file = config.score_file
     worksheet = open_file(file)
-    title_list = read_question_title(worksheet)
-    persons_list = read_personal_results(worksheet, title_list)
+    title_list = read_question_title(worksheet,config)
+    persons_list = read_personal_results(worksheet, title_list,config)
 
-    print("final:" + str(persons_list))
+
+    # print("final:" + str(persons_list))
 
     # sheet1_nrows4 = sheet1.row_values(3)  # 获得第4行数据
     # sheet1_cols2 = sheet1.col_values(2)  # 获得第3列数据

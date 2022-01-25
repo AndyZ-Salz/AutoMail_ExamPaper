@@ -75,7 +75,7 @@ class Mail:
             try:
                 self.__smtpObj.login(self.__username, self.__password)
                 self.__smtpObj.sendmail(self.__sender, self.__receiver, self.message.as_string())
-                print("邮件发送成功")
+                print("给{}的邮件发送成功".format(self.__receiver))
                 self.__smtpObj.quit()
 
             except smtplib.SMTPException:
