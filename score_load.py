@@ -70,6 +70,9 @@ def read_personal_results(worksheet, title_list,config):
         #     print("person's raw data: " + str(worksheet.row_values(i)))
 
         person_raw_data = worksheet.row_values(i)
+        # student number
+        person_data["studentNumber"] = person_raw_data[config.studentNumber_in_col]
+
         # name
         person_data["name"] = person_raw_data[config.name_in_col]
 

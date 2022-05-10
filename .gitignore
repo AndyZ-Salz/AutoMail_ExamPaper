@@ -133,8 +133,9 @@ dmypy.json
 
 # Mac
 .DS_Store
-mail_auth.py
-Resources/config.py
 mail_auth_andy.py
 Resources/mail_templet_andy.py
+Resources/mail_templet_andy_attached.py
 Resources/config_andy.py
+Mail_ExamPaper_andy.py
+Mail_ExamPaper_andy_attached.py

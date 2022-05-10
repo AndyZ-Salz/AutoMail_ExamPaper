@@ -11,6 +11,7 @@
 
 # History:
 # 2022/1/25: Create
+import os.path
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -52,8 +53,18 @@ class Mail:
         else:
             print(self.__body)
 
-    def attach_generator(self):
-        pass
+    def attach_generator(self,file_path, file_name):
+        file = os.path.join(file_path, file_name)
+        att1 = MIMEText(open(file, 'rb').read(), 'base64', 'utf-8')
+        att1["Content-Type"] = 'application/octet-stream'
+        # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
+        att1.add_header('Content-Disposition', 'attachment', filename=file_name)
+        self.message.attach(att1)
+
+        print("Added file: " +att1["Content-Disposition"])
+
+        self.__attach_flag = 1
+
 
     def server_config(self, host: str, port: int, username: str, password: str, SSL=False):
         if SSL == False:

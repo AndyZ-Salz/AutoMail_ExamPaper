@@ -48,7 +48,7 @@ if __name__ == '__main__':
         mail_person.head_generator(auth.mail_user, recevier, subject)
         mail_person.server_config(auth.mail_host, auth.mail_port, auth.mail_user, auth.mail_pass, SSL=True)
         mail_person.body_generator(mail_text, "plain")
-        mail_person.send_mail()
+        # mail_person.send_mail()
 
         #增加间隔
         time.sleep(2)

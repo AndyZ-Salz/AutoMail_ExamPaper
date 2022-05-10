@@ -24,7 +24,7 @@ Your scores in {exam} are as follows:
 
 space = "  "
 
-score_item = """{question_title}: {real_score}/{question_total_value}
+score_item = """{question_title}: {real_score:.1f}/{question_total_value:.0f}
 """
 
 body_bottom = """
